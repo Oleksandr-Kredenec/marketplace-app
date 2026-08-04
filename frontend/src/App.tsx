@@ -1,17 +1,12 @@
 import {useState, useEffect} from 'react';
+import useProducts  from './hooks/useProducts.ts';
+import { getProducts } from './services/api.ts';
 import ProductContainer from './components/Product/ProductContainer.tsx';
 import AddButton from './components/AddProductForm/AddButton.tsx';
 import AddForm from './components/AddProductForm/AddForm.tsx';
 
-interface Product{
-    id: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-}
-
 export default function App() {
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useProducts();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [addFormActive, setAddFormActive] = useState<boolean>(false);
 
@@ -19,13 +14,14 @@ export default function App() {
     useEffect( () => {
         const fetchData = async () => {
             try {
-                fetch('http://localhost:5011/products')
+                /*fetch('http://localhost:5011/products')
                 .then((response) => {
                     return response.json();
                 })
                 .then((result) => {
                     setProducts(result.value);
-                });
+                });*/
+                getProducts(setProducts);
             } catch (error) {
                 console.log(`[!] Error of loading\n${error}`);
             } finally {

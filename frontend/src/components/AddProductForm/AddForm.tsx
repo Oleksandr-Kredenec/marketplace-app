@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {addProduct} from '../../services/api';
 import Cross from '../main/Cross';
 import PriceInput from './PriceInput';
 import DescriptionInput from './DescriptionInput';
@@ -18,25 +19,9 @@ export default function AddForm({isActive, setFormActive}: AddFormProps){
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('userId', '3e192f73-0ef6-43be-b2f5-cf2708f803ad');
-        formData.append('title', `${productTitle}`);
-        formData.append('price', `${Number(productPrice)}`);
-        if (img) formData.append('image', img);
-        formData.append('description', `${productDescription}`);
-
-        const response = await fetch("http://localhost:5011/products", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.ok){
-            alert(`error: ${await response.text()}`);
+        if (await addProduct(productTitle, productPrice, productDescription, img)){
+            setFormActive(false);
         }
-
-        setFormActive(false);
-        window.location.reload();
     };
 
     if (isActive) return (
