@@ -1,8 +1,11 @@
-export function getProducts(setProducts: (products: Product[]) => void) {
-    fetch('http://localhost:5011/products')
-    .then((response) => {
-        return response.json();
-    })
+
+export function getProducts(setProducts: (products: Product[]) => void,
+                            options: {sortBy: "Title" | "Price",
+                                      dimension: "Ascending" | "Descending"}){
+    console.log(options.sortBy);
+    console.log(options.dimension);
+    fetch(`http://localhost:5011/products?sortBy=${options.sortBy}&Dimension=${options.dimension}`)
+    .then((response) => response.json())
     .then((result) => {
         setProducts(result.value);
     });

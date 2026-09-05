@@ -8,7 +8,7 @@ public static class ProductExtensions
 {
     public static IQueryable<Product> Sort(this IQueryable<Product> quiryable, ProductQuery args)
     {
-        return args.Dimension.Equals((int)DimensionTypes.Descending) ?
+        return args.Dimension.Equals(DimensionTypes.Descending) ?
                 quiryable.OrderByDescending(GetKeySelector(args.SortBy == null ? string.Empty : args.SortBy)) :
                 quiryable.OrderBy(GetKeySelector(args.SortBy == null ? string.Empty : args.SortBy));
     }
@@ -21,7 +21,6 @@ public static class ProductExtensions
         }
         return parameter switch
         {
-            nameof(Product.Title) => x => x.Title,
             nameof(Product.Price) => x => x.Price,
             _ => x => x.Title
         };

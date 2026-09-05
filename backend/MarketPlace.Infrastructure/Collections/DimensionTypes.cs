@@ -1,7 +1,7 @@
 namespace MarketPlace.Infrastructure.Collections;
 
-public enum DimensionTypes
+public static class DimensionTypes
 {
-    Ascending,
-    Descending
+    public const string Ascending = "Ascending";
+    public const string Descending = "Descending";
 }

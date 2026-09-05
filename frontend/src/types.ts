@@ -4,3 +4,5 @@ interface Product{
     price: number;
     imageUrl: string;
 }
+
+type sortingOption = 'ta' | 'td' | 'pa' | 'pd';

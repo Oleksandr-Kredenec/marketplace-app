@@ -4,6 +4,7 @@ import { getProducts } from './services/api.ts';
 import ProductContainer from './components/Product/ProductContainer.tsx';
 import AddButton from './components/AddProductForm/AddButton.tsx';
 import AddForm from './components/AddProductForm/AddForm.tsx';
+import SortBar from './components/SortingPanel/SortBar.tsx';
 
 export default function App() {
     const [products, setProducts] = useProducts();
@@ -14,14 +15,7 @@ export default function App() {
     useEffect( () => {
         const fetchData = async () => {
             try {
-                /*fetch('http://localhost:5011/products')
-                .then((response) => {
-                    return response.json();
-                })
-                .then((result) => {
-                    setProducts(result.value);
-                });*/
-                getProducts(setProducts);
+                getProducts(setProducts, {sortBy: "Title", dimension: "Ascending"});
             } catch (error) {
                 console.log(`[!] Error of loading\n${error}`);
             } finally {
@@ -43,7 +37,10 @@ export default function App() {
     // Main app
     return (
         <div className="flex justify-center items-center">
-            <ProductContainer products={products}/>
+            <div className="flex flex-col">
+                <SortBar onSort={setProducts}/>
+                <ProductContainer products={products}/>
+            </div>
             <AddButton onClick={() => setAddFormActive(!addFormActive)}/>
             <AddForm isActive={addFormActive} setFormActive={setAddFormActive}/>
         </div>

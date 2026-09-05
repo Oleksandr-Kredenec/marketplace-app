@@ -29,6 +29,7 @@ export default function AddForm({isActive, setFormActive}: AddFormProps){
             <form
             method="post"
             onSubmit={handleSubmit}
+            autoComplete="off"
             className="bg-white relative p-6 h-150 w-300 rounded-lg">
                 <Cross set={setFormActive}/>
                 <ImageInput

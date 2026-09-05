@@ -17,10 +17,9 @@ public class ProductRepository : IProductRepository
 
     public async Task<List<Product>> GetAllProductsAsync(ProductQuery args)
     {
-        var query = args.ArgsTo();
         List<Product> products = await _database.Products
                 .AsNoTracking()
-                .Sort(query)
+                .Sort(args)
                 .ToListAsync();
 
         return products;
